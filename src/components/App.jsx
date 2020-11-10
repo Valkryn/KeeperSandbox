@@ -5,11 +5,26 @@ import Note from "./Note";
 import CreateArea from "./CreateArea";
 
 function App() {
+  const [notes, setNotes] = useState([]);
+
+  function submitNote(entry) {
+    setNotes((prevValue) => {
+      return [...prevValue, entry];
+    });
+  }
+
   return (
     <div>
       <Header />
-      <CreateArea />
-      <Note key={1} title="Note title" content="Note content" />
+      <CreateArea addNote={submitNote} />
+      {notes.map((noteItem, index) => (
+        <Note
+          key={index}
+          id={index}
+          title={noteItem.title}
+          content={noteItem.content}
+        />
+      ))}
       <Footer />
     </div>
   );
