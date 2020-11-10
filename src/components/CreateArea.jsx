@@ -1,20 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 
 function CreateArea(props) {
-  function addKeeper(evt) {
-    props.addEntry(evt);
+  const [entry, setEntry] = useState({
+    title: "",
+    content: ""
+  });
+
+  function handleChange(evt) {
+    let { name, value } = evt.target;
+    setEntry((prevValue) => {
+      return {
+        ...prevValue,
+        [name]: value
+      };
+    });
   }
 
   return (
     <div>
-      <form onChange={addKeeper}>
-        <input
-          value={props.entryValue.title}
-          name="title"
-          placeholder="Title"
-        />
+      <form onChange={handleChange}>
+        <input value={entry.title} name="title" placeholder="Title" />
         <textarea
-          value={props.entryValue.content}
+          value={entry.content}
           name="content"
           placeholder="Take a note..."
           rows="3"
